@@ -1,0 +1,766 @@
+SQL> select * from customers where email like'%gmail.com';
+
+CUSTOMER_ID CUSTOMER_NAME                                      EMAIL                                                   PHONE                                                                            
+----------- -------------------------------------------------- -------------------------------------------------- ----------                                                                            
+ADDRESS                                                                                                ISACTIVE                                                                                         
+---------------------------------------------------------------------------------------------------- ----------                                                                                         
+         20 super                                              super234@gmail.com                                 1232457887                                                                            
+baner                                                                                                                                                                                                   
+                                                                                                                                                                                                        
+         30 shubh                                              shubhasd@gmail.com                                 6376356377                                                                            
+pune                                                                                                                                                                                                    
+                                                                                                                                                                                                        
+         40 mahi                                               mahi@gmail.com                                     7667898909                                                                            
+pashan                                                                                                                                                                                                  
+                                                                                                                                                                                                        
+
+SQL> set linesize 500
+SQL> set pagesize 500
+SQL> select * from customers where email like'%gmail.com';
+
+CUSTOMER_ID CUSTOMER_NAME                                      EMAIL                                                   PHONE ADDRESS                                                                                                ISACTIVE                                                                                                                                                                                                                                                                        
+----------- -------------------------------------------------- -------------------------------------------------- ---------- ---------------------------------------------------------------------------------------------------- ----------                                                                                                                                                                                                                                                                        
+         20 super                                              super234@gmail.com                                 1232457887 baner                                                                                                                                                                                                                                                                                                                                                                                  
+         30 shubh                                              shubhasd@gmail.com                                 6376356377 pune                                                                                                                                                                                                                                                                                                                                                                                   
+         40 mahi                                               mahi@gmail.com                                     7667898909 pashan                                                                                                                                                                                                                                                                                                                                                                                 
+
+SQL> select * from transactions where tdate between to_date('2024-01-01','yyyy-mm-dd')
+  2  and to_date('2024-01-03','yyyy-mm-dd');
+
+no rows selected
+
+SQL> select * from transactoins;
+select * from transactoins
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> select * from transactions;
+
+no rows selected
+
+SQL> select * from transaction;
+select * from transaction
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> desc transactions;
+ Name                                                                                                                                                                                                                                                                                                  Null?    Type
+ ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ TRANSACTIONID                                                                                                                                                                                                                                                                                         NOT NULL NUMBER
+ ACCOUNTID                                                                                                                                                                                                                                                                                                      NUMBER
+ TDATE                                                                                                                                                                                                                                                                                                          DATE
+ AMOUNT                                                                                                                                                                                                                                                                                                         NUMBER
+ TRANSACTIONTYPE                                                                                                                                                                                                                                                                                                VARCHAR2(20)
+
+SQL> insert into transactions (transaction_id, tdate, amount, description)
+  2  values (1, to_date('2024-01-01 10:30:00','yyyy-mm-dd hh24:mi:ss'), 5000, 'First Transaction');
+insert into transactions (transaction_id, tdate, amount, description)
+                                                         *
+ERROR at line 1:
+ORA-00904: "DESCRIPTION": invalid identifier 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  insert into transactions (transactionid, tdate, amount, description)
+  2* values (1, to_date('2024-01-01 10:30:00','yyyy-mm-dd hh24:mi:ss'), 5000, 'First Transaction')
+SQL> /
+insert into transactions (transactionid, tdate, amount, description)
+                                                        *
+ERROR at line 1:
+ORA-00904: "DESCRIPTION": invalid identifier 
+
+
+SQL> insert into transactions
+  2  (transactionid, accountid, tdate, amount, transactiontype)
+  3  values
+  4  (1, 101, to_date('2024-01-01 10:30:00','yyyy-mm-dd hh24:mi:ss'), 5000, 'DEPOSIT');
+
+1 row created.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  insert into transactions
+  2  (transactionid, accountid, tdate, amount, transactiontype)
+  3  values
+  4* (2, 102, to_date('2023-08-01 09:30:00','yyyy-mm-dd hh24:mi:ss'), 8000, 'DEPOSIT')
+SQL> /
+
+1 row created.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  insert into transactions
+  2  (transactionid, accountid, tdate, amount, transactiontype)
+  3  values
+  4* (3, 103, to_date('2023-07-06 09:30:00','yyyy-mm-dd hh24:mi:ss'), 8000, 'DEPOSIT')
+SQL> /
+
+1 row created.
+
+SQL> select * from transactions;
+
+TRANSACTIONID  ACCOUNTID TDATE         AMOUNT TRANSACTIONTYPE                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+------------- ---------- --------- ---------- --------------------                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+            1        101 01-JAN-24       5000 DEPOSIT                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+            2        102 01-AUG-23       8000 DEPOSIT                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+            3        103 06-JUL-23       8000 DEPOSIT                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select * from transactions where tdate between to_date('2024-01-01','yyyy-mm-dd')
+  2* and to_date('2024-01-03','yyyy-mm-dd')
+SQL> /
+
+TRANSACTIONID  ACCOUNTID TDATE         AMOUNT TRANSACTIONTYPE                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+------------- ---------- --------- ---------- --------------------                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+            1        101 01-JAN-24       5000 DEPOSIT                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+
+SQL> select * from accounts where balance<500;
+select * from accounts where balance<500
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> select * from accounts;
+select * from accounts
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> select * from account;
+
+ ACCOUNTID CUSTOMER_ID ACCOUNT_TYPE            BALANCE                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+---------- ----------- -------------------- ----------                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+       101          20 saving                    20000                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+       102          30 current                   50000                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+       103          40 saving                    20000                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+
+SQL> select * from account where balance<500;
+
+no rows selected
+
+SQL> select * from account where balance<50000;
+
+ ACCOUNTID CUSTOMER_ID ACCOUNT_TYPE            BALANCE                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+---------- ----------- -------------------- ----------                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+       101          20 saving                    20000                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+       103          40 saving                    20000                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+
+SQL> select * from account where balance<5000;
+
+no rows selected
+
+SQL> desc account;
+ Name                                                                                                                                                                                                                                                                                                  Null?    Type
+ ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ ACCOUNTID                                                                                                                                                                                                                                                                                             NOT NULL NUMBER
+ CUSTOMER_ID                                                                                                                                                                                                                                                                                                    NUMBER
+ ACCOUNT_TYPE                                                                                                                                                                                                                                                                                          NOT NULL VARCHAR2(20)
+ BALANCE                                                                                                                                                                                                                                                                                                        NUMBER
+
+SQL> insert into account values(&accountid,&customer_id,'&account_type',&balance);
+Enter value for accountid: 104
+Enter value for customer_id: 60
+Enter value for account_type: saving
+Enter value for balance: 500
+old   1: insert into account values(&accountid,&customer_id,'&account_type',&balance)
+new   1: insert into account values(104,60,'saving',500)
+insert into account values(104,60,'saving',500)
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (HR.SYS_C007300) violated - parent key not found 
+
+
+SQL> /
+Enter value for accountid: 101
+Enter value for customer_id: 1001
+Enter value for account_type: saving
+Enter value for balance: 500
+old   1: insert into account values(&accountid,&customer_id,'&account_type',&balance)
+new   1: insert into account values(101,1001,'saving',500)
+insert into account values(101,1001,'saving',500)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (HR.SYS_C007299) violated 
+
+
+SQL> /
+Enter value for accountid: 105
+Enter value for customer_id: 1001
+Enter value for account_type: saving
+Enter value for balance: 500
+old   1: insert into account values(&accountid,&customer_id,'&account_type',&balance)
+new   1: insert into account values(105,1001,'saving',500)
+insert into account values(105,1001,'saving',500)
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (HR.SYS_C007300) violated - parent key not found 
+
+
+SQL> select * from cutomers;
+select * from cutomers
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> select * from cutomer;
+select * from cutomer
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> select * from customers;
+
+CUSTOMER_ID CUSTOMER_NAME                                      EMAIL                                                   PHONE ADDRESS                                                                                                ISACTIVE                                                                                                                                                                                                                                                                        
+----------- -------------------------------------------------- -------------------------------------------------- ---------- ---------------------------------------------------------------------------------------------------- ----------                                                                                                                                                                                                                                                                        
+         20 super                                              super234@gmail.com                                 1232457887 baner                                                                                                                                                                                                                                                                                                                                                                                  
+         30 shubh                                              shubhasd@gmail.com                                 6376356377 pune                                                                                                                                                                                                                                                                                                                                                                                   
+         40 mahi                                               mahi@gmail.com                                     7667898909 pashan                                                                                                                                                                                                                                                                                                                                                                                 
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* insert into account values(&accountid,&customer_id,'&account_type',&balance)
+SQL> /
+Enter value for accountid: 20
+Enter value for customer_id: 
+Enter value for account_type: 
+Enter value for balance: 
+old   1: insert into account values(&accountid,&customer_id,'&account_type',&balance)
+new   1: insert into account values(20,,'',)
+insert into account values(20,,'',)
+                              *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> select * from customers;
+
+CUSTOMER_ID CUSTOMER_NAME                                      EMAIL                                                   PHONE ADDRESS                                                                                                ISACTIVE                                                                                                                                                                                                                                                                        
+----------- -------------------------------------------------- -------------------------------------------------- ---------- ---------------------------------------------------------------------------------------------------- ----------                                                                                                                                                                                                                                                                        
+         20 super                                              super234@gmail.com                                 1232457887 baner                                                                                                                                                                                                                                                                                                                                                                                  
+         30 shubh                                              shubhasd@gmail.com                                 6376356377 pune                                                                                                                                                                                                                                                                                                                                                                                   
+         40 mahi                                               mahi@gmail.com                                     7667898909 pashan                                                                                                                                                                                                                                                                                                                                                                                 
+
+SQL>  insert into account values(&accountid,&customer_id,'&account_type',&balance);
+Enter value for accountid: 302
+Enter value for customer_id: 20
+Enter value for account_type: current
+Enter value for balance: 500
+old   1:  insert into account values(&accountid,&customer_id,'&account_type',&balance)
+new   1:  insert into account values(302,20,'current',500)
+
+1 row created.
+
+SQL> /
+Enter value for accountid: 303
+Enter value for customer_id: 30
+Enter value for account_type: saving
+Enter value for balance: 1000
+old   1:  insert into account values(&accountid,&customer_id,'&account_type',&balance)
+new   1:  insert into account values(303,30,'saving',1000)
+
+1 row created.
+
+SQL> select * from customers;
+
+CUSTOMER_ID CUSTOMER_NAME                                      EMAIL                                                   PHONE ADDRESS                                                                                                ISACTIVE                                                                                                                                                                                                                                                                        
+----------- -------------------------------------------------- -------------------------------------------------- ---------- ---------------------------------------------------------------------------------------------------- ----------                                                                                                                                                                                                                                                                        
+         20 super                                              super234@gmail.com                                 1232457887 baner                                                                                                                                                                                                                                                                                                                                                                                  
+         30 shubh                                              shubhasd@gmail.com                                 6376356377 pune                                                                                                                                                                                                                                                                                                                                                                                   
+         40 mahi                                               mahi@gmail.com                                     7667898909 pashan                                                                                                                                                                                                                                                                                                                                                                                 
+
+SQL> select * from accounts where balance < 500;
+select * from accounts where balance < 500
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> select * from accounts where balance <500;
+select * from accounts where balance <500
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> select * from accounts;
+select * from accounts
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> select * from account;
+
+ ACCOUNTID CUSTOMER_ID ACCOUNT_TYPE            BALANCE                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+---------- ----------- -------------------- ----------                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+       101          20 saving                    20000                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+       102          30 current                   50000                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+       103          40 saving                    20000                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+       302          20 current                     500                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+       303          30 saving                     1000                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+
+SQL> select * from account where balance <500;
+
+no rows selected
+
+SQL> select * from customers where phone like'%123%';
+
+CUSTOMER_ID CUSTOMER_NAME                                      EMAIL                                                   PHONE ADDRESS                                                                                                ISACTIVE                                                                                                                                                                                                                                                                        
+----------- -------------------------------------------------- -------------------------------------------------- ---------- ---------------------------------------------------------------------------------------------------- ----------                                                                                                                                                                                                                                                                        
+         20 super                                              super234@gmail.com                                 1232457887 baner                                                                                                                                                                                                                                                                                                                                                                                  
+
+SQL> select * from customers where address like'pune%';
+
+CUSTOMER_ID CUSTOMER_NAME                                      EMAIL                                                   PHONE ADDRESS                                                                                                ISACTIVE                                                                                                                                                                                                                                                                        
+----------- -------------------------------------------------- -------------------------------------------------- ---------- ---------------------------------------------------------------------------------------------------- ----------                                                                                                                                                                                                                                                                        
+         30 shubh                                              shubhasd@gmail.com                                 6376356377 pune                                                                                                                                                                                                                                                                                                                                                                                   
+
+SQL> select * from transactions where transaction type='deposite';
+select * from transactions where transaction type='deposite'
+                                             *
+ERROR at line 1:
+ORA-00920: invalid relational operator 
+
+
+SQL> select * from transactions where transactiontype='deposite';
+
+no rows selected
+
+SQL> select * from transactions;
+
+TRANSACTIONID  ACCOUNTID TDATE         AMOUNT TRANSACTIONTYPE                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+------------- ---------- --------- ---------- --------------------                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+            1        101 01-JAN-24       5000 DEPOSIT                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+            2        102 01-AUG-23       8000 DEPOSIT                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+            3        103 06-JUL-23       8000 DEPOSIT                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+
+SQL> select * from transactions where transactiontype='deposit';
+
+no rows selected
+
+SQL> select * from transactions where transactiontype='DEPOSIT';
+
+TRANSACTIONID  ACCOUNTID TDATE         AMOUNT TRANSACTIONTYPE                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+------------- ---------- --------- ---------- --------------------                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+            1        101 01-JAN-24       5000 DEPOSIT                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+            2        102 01-AUG-23       8000 DEPOSIT                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+            3        103 06-JUL-23       8000 DEPOSIT                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+
+SQL> SELECT * FROM TRANSACTIONS WHERE TRANSACTIONTYPE IN('DEPOSIT','WITHDRAWAL');
+
+TRANSACTIONID  ACCOUNTID TDATE         AMOUNT TRANSACTIONTYPE                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+------------- ---------- --------- ---------- --------------------                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+            1        101 01-JAN-24       5000 DEPOSIT                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+            2        102 01-AUG-23       8000 DEPOSIT                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+            3        103 06-JUL-23       8000 DEPOSIT                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+
+SQL> SELECT * FROM CUSTOMERS WHERE CUSTOMERID IN(SELECT CUSTOMERID FROM ACCOUNT WHERE ACCOUNT TYPE IN('SAVING OR CHECKING'));
+SELECT * FROM CUSTOMERS WHERE CUSTOMERID IN(SELECT CUSTOMERID FROM ACCOUNT WHERE ACCOUNT TYPE IN('SAVING OR CHECKING'))
+                                                                                         *
+ERROR at line 1:
+ORA-00920: invalid relational operator 
+
+
+SQL> SELECT * FROM CUSTOMERS WHERE CUSTOMERID IN(SELECT CUSTOMERID FROM ACCOUNT WHERE ACCOUNTTYPE IN('SAVING OR CHECKING'));
+SELECT * FROM CUSTOMERS WHERE CUSTOMERID IN(SELECT CUSTOMERID FROM ACCOUNT WHERE ACCOUNTTYPE IN('SAVING OR CHECKING'))
+                              *
+ERROR at line 1:
+ORA-00904: "CUSTOMERID": invalid identifier 
+
+
+SQL> SELECT * FROM CUSTOMERS WHERE CUSTOMER_ID IN(SELECT CUSTOMER_ID FROM ACCOUNT WHERE ACCOUNTTYPE IN('SAVING OR CHECKING'));
+SELECT * FROM CUSTOMERS WHERE CUSTOMER_ID IN(SELECT CUSTOMER_ID FROM ACCOUNT WHERE ACCOUNTTYPE IN('SAVING OR CHECKING'))
+                                                                                   *
+ERROR at line 1:
+ORA-00904: "ACCOUNTTYPE": invalid identifier 
+
+
+SQL> SELECT * FROM CUSTOMERS WHERE CUSTOMER_ID IN(SELECT CUSTOMER_ID FROM ACCOUNT WHERE ACCOUNT_TYPE IN('SAVING OR CHECKING'));
+
+no rows selected
+
+SQL> SELECT DISTINCT account_type FROM account;
+
+ACCOUNT_TYPE                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+--------------------                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+current                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+saving                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+
+SQL> insert into customers (customer_id, customer_name, email, phone, address)
+  2  values (204, 'Neha Kapoor', 'neha@example.com', 9876504444, 'Bangalore');
+
+1 row created.
+
+SQL> select * from customers;
+
+CUSTOMER_ID CUSTOMER_NAME                                      EMAIL                                                   PHONE ADDRESS                                                                                                ISACTIVE                                                                                                                                                                                                                                                                        
+----------- -------------------------------------------------- -------------------------------------------------- ---------- ---------------------------------------------------------------------------------------------------- ----------                                                                                                                                                                                                                                                                        
+         20 super                                              super234@gmail.com                                 1232457887 baner                                                                                                                                                                                                                                                                                                                                                                                  
+         30 shubh                                              shubhasd@gmail.com                                 6376356377 pune                                                                                                                                                                                                                                                                                                                                                                                   
+         40 mahi                                               mahi@gmail.com                                     7667898909 pashan                                                                                                                                                                                                                                                                                                                                                                                 
+        204 Neha Kapoor                                        neha@example.com                                   9876504444 Bangalore                                                                                                                                                                                                                                                                                                                                                                              
+
+SQL> insert into account (accountid, customer_id, account_type, balance)
+  2  values (304, 204, 'CHECKING', 8000);
+
+1 row created.
+
+SQL> SELECT * FROM CUSTOMERS WHERE CUSTOMER_ID IN(SELECT CUSTOMER_ID FROM ACCOUNT WHERE ACCOUNT_TYPE IN('SAVING OR CHECKING'));
+
+no rows selected
+
+SQL> SELECT * FROM CUSTOMERS WHERE CUSTOMER_ID IN(SELECT CUSTOMER_ID FROM ACCOUNT WHERE (ACCOUNT_TYPE) IN('SAVING OR CHECKING'));
+
+no rows selected
+
+SQL> SELECT *
+  2  FROM customers
+  3  WHERE customer_id IN (
+  4      SELECT customer_id
+  5      FROM account
+  6      WHERE lower(account_type) IN ('saving', 'checking')
+  7  );
+
+CUSTOMER_ID CUSTOMER_NAME                                      EMAIL                                                   PHONE ADDRESS                                                                                                ISACTIVE                                                                                                                                                                                                                                                                        
+----------- -------------------------------------------------- -------------------------------------------------- ---------- ---------------------------------------------------------------------------------------------------- ----------                                                                                                                                                                                                                                                                        
+         20 super                                              super234@gmail.com                                 1232457887 baner                                                                                                                                                                                                                                                                                                                                                                                  
+         30 shubh                                              shubhasd@gmail.com                                 6376356377 pune                                                                                                                                                                                                                                                                                                                                                                                   
+         40 mahi                                               mahi@gmail.com                                     7667898909 pashan                                                                                                                                                                                                                                                                                                                                                                                 
+        204 Neha Kapoor                                        neha@example.com                                   9876504444 Bangalore                                                                                                                                                                                                                                                                                                                                                                              
+
+SQL> SELECT *
+  2  FROM customers
+  3  WHERE customer_id IN (
+  4      SELECT customer_id
+  5      FROM account
+  6      WHERE lower(account_type) IN ('saving', 'checking')
+  7  );
+
+CUSTOMER_ID CUSTOMER_NAME                                      EMAIL                                                   PHONE ADDRESS                                                                                                ISACTIVE                                                                                                                                                                                                                                                                        
+----------- -------------------------------------------------- -------------------------------------------------- ---------- ---------------------------------------------------------------------------------------------------- ----------                                                                                                                                                                                                                                                                        
+         20 super                                              super234@gmail.com                                 1232457887 baner                                                                                                                                                                                                                                                                                                                                                                                  
+         30 shubh                                              shubhasd@gmail.com                                 6376356377 pune                                                                                                                                                                                                                                                                                                                                                                                   
+         40 mahi                                               mahi@gmail.com                                     7667898909 pashan                                                                                                                                                                                                                                                                                                                                                                                 
+        204 Neha Kapoor                                        neha@example.com                                   9876504444 Bangalore                                                                                                                                                                                                                                                                                                                                                                              
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* SELECT * FROM CUSTOMERS WHERE CUSTOMER_ID IN(SELECT CUSTOMER_ID FROM ACCOUNT WHERE (ACCOUNT_TYPE) IN('SAVING', 'CHECKING')
+SQL> /
+SELECT * FROM CUSTOMERS WHERE CUSTOMER_ID IN(SELECT CUSTOMER_ID FROM ACCOUNT WHERE (ACCOUNT_TYPE) IN('SAVING', 'CHECKING')
+                                                                                                                         *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* SELECT * FROM CUSTOMERS WHERE CUSTOMER_ID IN(SELECT CUSTOMER_ID FROM ACCOUNT WHERE ACCOUNT_TYPE IN('SAVING', 'CHECKING')
+SQL> /
+SELECT * FROM CUSTOMERS WHERE CUSTOMER_ID IN(SELECT CUSTOMER_ID FROM ACCOUNT WHERE ACCOUNT_TYPE IN('SAVING', 'CHECKING')
+                                                                                                                       *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* SELECT * FROM CUSTOMERS WHERE CUSTOMER_ID IN(SELECT CUSTOMER_ID FROM ACCOUNT WHERE ACCOUNT_TYPE IN('SAVING', 'CHECKING'))
+SQL> /
+
+CUSTOMER_ID CUSTOMER_NAME                                      EMAIL                                                   PHONE ADDRESS                                                                                                ISACTIVE                                                                                                                                                                                                                                                                        
+----------- -------------------------------------------------- -------------------------------------------------- ---------- ---------------------------------------------------------------------------------------------------- ----------                                                                                                                                                                                                                                                                        
+        204 Neha Kapoor                                        neha@example.com                                   9876504444 Bangalore                                                                                                                                                                                                                                                                                                                                                                              
+
+SQL> select * from transactions where account_id in(102,104,106);
+select * from transactions where account_id in(102,104,106)
+                                 *
+ERROR at line 1:
+ORA-00904: "ACCOUNT_ID": invalid identifier 
+
+
+SQL> select * from transactions where accountid in(102,104,106);
+
+TRANSACTIONID  ACCOUNTID TDATE         AMOUNT TRANSACTIONTYPE                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+------------- ---------- --------- ---------- --------------------                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+            2        102 01-AUG-23       8000 DEPOSIT                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+
+SQL> select * from account where balance between 1000 and 5000;
+
+ ACCOUNTID CUSTOMER_ID ACCOUNT_TYPE            BALANCE                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+---------- ----------- -------------------- ----------                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+       303          30 saving                     1000                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+
+SQL> select * from customers where phone number is null;
+select * from customers where phone number is null
+                                    *
+ERROR at line 1:
+ORA-00920: invalid relational operator 
+
+
+SQL> select * from customer where phone number is null;
+select * from customer where phone number is null
+                                   *
+ERROR at line 1:
+ORA-00920: invalid relational operator 
+
+
+SQL> select * from customers;
+
+CUSTOMER_ID CUSTOMER_NAME                                      EMAIL                                                   PHONE ADDRESS                                                                                                ISACTIVE                                                                                                                                                                                                                                                                        
+----------- -------------------------------------------------- -------------------------------------------------- ---------- ---------------------------------------------------------------------------------------------------- ----------                                                                                                                                                                                                                                                                        
+         20 super                                              super234@gmail.com                                 1232457887 baner                                                                                                                                                                                                                                                                                                                                                                                  
+         30 shubh                                              shubhasd@gmail.com                                 6376356377 pune                                                                                                                                                                                                                                                                                                                                                                                   
+         40 mahi                                               mahi@gmail.com                                     7667898909 pashan                                                                                                                                                                                                                                                                                                                                                                                 
+        204 Neha Kapoor                                        neha@example.com                                   9876504444 Bangalore                                                                                                                                                                                                                                                                                                                                                                              
+
+SQL> select * from customers where phone number is null;
+select * from customers where phone number is null
+                                    *
+ERROR at line 1:
+ORA-00920: invalid relational operator 
+
+
+SQL> select * from customers where phone is null;
+
+no rows selected
+
+SQL> insert into customers (customer_id, customer_name, email, phone, address)
+  2  values (205, 'Rohit Mehta', 'rohit@example.com', null, 'Hyderabad');
+
+1 row created.
+
+SQL> 
+SQL> commit;
+
+Commit complete.
+
+SQL> select * from customers where phone is null;
+
+CUSTOMER_ID CUSTOMER_NAME                                      EMAIL                                                   PHONE ADDRESS                                                                                                ISACTIVE                                                                                                                                                                                                                                                                        
+----------- -------------------------------------------------- -------------------------------------------------- ---------- ---------------------------------------------------------------------------------------------------- ----------                                                                                                                                                                                                                                                                        
+        205 Rohit Mehta                                        rohit@example.com                                             Hyderabad                                                                                                                                                                                                                                                                                                                                                                              
+
+SQL> select * from transactions where amount is null;
+
+no rows selected
+
+SQL> insert into transactions values (&transactionid, &accountid, &tdate, &amount, '&transactiontype')
+  2  insert into transactions values (&transactionid, &accountid, &tdate, &amount, '&transactiontype');
+Enter value for transactionid: 999
+Enter value for accountid: 20
+Enter value for tdate: sysdate
+Enter value for amount: null
+Enter value for transactiontype: deposit
+old   1: insert into transactions values (&transactionid, &accountid, &tdate, &amount, '&transactiontype')
+new   1: insert into transactions values (999, 20, sysdate, null, 'deposit')
+Enter value for transactionid: 111
+Enter value for accountid: 20
+Enter value for tdate: sysdate
+Enter value for amount: null
+Enter value for transactiontype: deposite
+old   2: insert into transactions values (&transactionid, &accountid, &tdate, &amount, '&transactiontype')
+new   2: insert into transactions values (111, 20, sysdate, null, 'deposite')
+insert into transactions values (111, 20, sysdate, null, 'deposite')
+*
+ERROR at line 2:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> /
+Enter value for transactionid: 999
+Enter value for accountid: 20
+Enter value for tdate: sysdate
+Enter value for amount: null
+Enter value for transactiontype: deposit
+old   1: insert into transactions values (&transactionid, &accountid, &tdate, &amount, '&transactiontype')
+new   1: insert into transactions values (999, 20, sysdate, null, 'deposit')
+Enter value for transactionid: 
+Enter value for accountid: 
+Enter value for tdate: 
+Enter value for amount: 
+Enter value for transactiontype: 
+old   2: insert into transactions values (&transactionid, &accountid, &tdate, &amount, '&transactiontype')
+new   2: insert into transactions values (, , , , '')
+insert into transactions values (, , , , '')
+*
+ERROR at line 2:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> insert into transactions values (&transactionid, &accountid, &tdate, &amount, '&transactiontype');
+Enter value for transactionid: 999
+Enter value for accountid: 20
+Enter value for tdate: sysdate
+Enter value for amount: null
+Enter value for transactiontype: deposit
+old   1: insert into transactions values (&transactionid, &accountid, &tdate, &amount, '&transactiontype')
+new   1: insert into transactions values (999, 20, sysdate, null, 'deposit')
+
+1 row created.
+
+SQL> 
+SQL> SQL> select * from transactions where amount is null;
+SP2-0734: unknown command beginning "SQL> selec..." - rest of line ignored.
+SQL> select * from transactions where amount is null;
+
+TRANSACTIONID  ACCOUNTID TDATE         AMOUNT TRANSACTIONTYPE                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+------------- ---------- --------- ---------- --------------------                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+          999         20 20-AUG-25            deposit                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+
+SQL> SQL> select * from customers where address is null;
+SP2-0734: unknown command beginning "SQL> selec..." - rest of line ignored.
+SQL>  select * from customers where address is null;
+
+no rows selected
+
+SQL> insert into customers (customer_id, customer_name, email, phone, address)
+  2  values (206, 'Karan Patel', 'karan@example.com', 9876505555, null);
+
+1 row created.
+
+SQL> 
+SQL> commit;
+
+Commit complete.
+
+SQL>  select * from customers where address is null;
+
+CUSTOMER_ID CUSTOMER_NAME                                      EMAIL                                                   PHONE ADDRESS                                                                                                ISACTIVE                                                                                                                                                                                                                                                                        
+----------- -------------------------------------------------- -------------------------------------------------- ---------- ---------------------------------------------------------------------------------------------------- ----------                                                                                                                                                                                                                                                                        
+        206 Karan Patel                                        karan@example.com                                  9876505555                                                                                                                                                                                                                                                                                                                                                                                        
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  insert into customers (customer_id, customer_name, email, phone, address)
+  2* values (205, 'Neha Kapoor', ' is not null', 9876504444, 'Bangalore')
+  3  /
+insert into customers (customer_id, customer_name, email, phone, address)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (HR.SYS_C007296) violated 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  insert into customers (customer_id, customer_name, email, phone, address)
+  2* values (205, 'supra', ' is not null', 9876504444, 'Bangalore')
+SQL> /
+insert into customers (customer_id, customer_name, email, phone, address)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (HR.SYS_C007296) violated 
+
+
+SQL> select * balance from accounts where accountid is null;
+select * balance from accounts where accountid is null
+         *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select * balance from accounts where account_id is null
+SQL> /
+select * balance from accounts where account_id is null
+         *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> SELECT *
+  2  FROM accounts
+  3  WHERE account_id IS NULL;
+FROM accounts
+     *
+ERROR at line 2:
+ORA-00942: table or view does not exist 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  SELECT *
+  2  FROM account
+  3* WHERE account_id IS NULL
+SQL> /
+WHERE account_id IS NULL
+      *
+ERROR at line 3:
+ORA-00904: "ACCOUNT_ID": invalid identifier 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  SELECT *
+  2  FROM account
+  3* WHERE accountid IS NULL
+SQL> /
+
+no rows selected
+
+SQL> SELECT *
+  2  FROM account
+  3  WHERE balance IS NOT NULL;
+
+ ACCOUNTID CUSTOMER_ID ACCOUNT_TYPE            BALANCE                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+---------- ----------- -------------------- ----------                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+       101          20 saving                    20000                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+       102          30 current                   50000                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+       103          40 saving                    20000                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+       302          20 current                     500                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+       303          30 saving                     1000                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+       304         204 CHECKING                   8000                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+
+6 rows selected.
+
+SQL> select * from customers where isactive is null or isactive=0;
+
+CUSTOMER_ID CUSTOMER_NAME                                      EMAIL                                                   PHONE ADDRESS                                                                                                ISACTIVE                                                                                                                                                                                                                                                                        
+----------- -------------------------------------------------- -------------------------------------------------- ---------- ---------------------------------------------------------------------------------------------------- ----------                                                                                                                                                                                                                                                                        
+         20 super                                              super234@gmail.com                                 1232457887 baner                                                                                                                                                                                                                                                                                                                                                                                  
+         30 shubh                                              shubhasd@gmail.com                                 6376356377 pune                                                                                                                                                                                                                                                                                                                                                                                   
+         40 mahi                                               mahi@gmail.com                                     7667898909 pashan                                                                                                                                                                                                                                                                                                                                                                                 
+        204 Neha Kapoor                                        neha@example.com                                   9876504444 Bangalore                                                                                                                                                                                                                                                                                                                                                                              
+        205 Rohit Mehta                                        rohit@example.com                                             Hyderabad                                                                                                                                                                                                                                                                                                                                                                              
+        206 Karan Patel                                        karan@example.com                                  9876505555                                                                                                                                                                                                                                                                                                                                                                                        
+
+6 rows selected.
+
+SQL> select * from customers where email is not null;
+
+CUSTOMER_ID CUSTOMER_NAME                                      EMAIL                                                   PHONE ADDRESS                                                                                                ISACTIVE                                                                                                                                                                                                                                                                        
+----------- -------------------------------------------------- -------------------------------------------------- ---------- ---------------------------------------------------------------------------------------------------- ----------                                                                                                                                                                                                                                                                        
+         20 super                                              super234@gmail.com                                 1232457887 baner                                                                                                                                                                                                                                                                                                                                                                                  
+         30 shubh                                              shubhasd@gmail.com                                 6376356377 pune                                                                                                                                                                                                                                                                                                                                                                                   
+         40 mahi                                               mahi@gmail.com                                     7667898909 pashan                                                                                                                                                                                                                                                                                                                                                                                 
+        204 Neha Kapoor                                        neha@example.com                                   9876504444 Bangalore                                                                                                                                                                                                                                                                                                                                                                              
+        205 Rohit Mehta                                        rohit@example.com                                             Hyderabad                                                                                                                                                                                                                                                                                                                                                                              
+        206 Karan Patel                                        karan@example.com                                  9876505555                                                                                                                                                                                                                                                                                                                                                                                        
+
+6 rows selected.
+
+SQL> spool off
